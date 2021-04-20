@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.services.database;
 
 import com.example.demo.Generic.service.Service;
 import com.example.demo.models.Template;

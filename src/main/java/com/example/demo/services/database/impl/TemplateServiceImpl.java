@@ -1,10 +1,8 @@
-package com.example.demo.services.impl;
+package com.example.demo.services.database.impl;
 
 import com.example.demo.models.Template;
-import com.example.demo.models.elasticSearchModels.TemplateElasticSearch;
 import com.example.demo.repository.TemplateRepository;
-import com.example.demo.repository.elasticSearch.TemplateElasticSearchRepo;
-import com.example.demo.services.TemplateService;
+import com.example.demo.services.database.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +46,6 @@ public class TemplateServiceImpl implements TemplateService<Template> {
     public List<Template> getTemplateLimit() {
         return this.templateRepository.getTemplateLimit();
     }
+
+
 }

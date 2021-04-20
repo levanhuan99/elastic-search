@@ -12,4 +12,6 @@ public interface TemplateRepository extends JpaRepository<Template, Long> {
 
     @Query(value = "select * from template where template_id>366000 and status  is not null",nativeQuery = true)
     public List<Template> getTemplateLimit();
+
+
 }
