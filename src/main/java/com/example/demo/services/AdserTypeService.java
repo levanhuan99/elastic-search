@@ -3,7 +3,7 @@ package com.example.demo.services;
 import java.util.List;
 
 
-public interface UserService<T> {
+public interface AdserTypeService<T> {
 
     public List<T> processSearch(final String name);
 
@@ -14,4 +14,6 @@ public interface UserService<T> {
     public List<T> fetchUserByNameContaining(final String name);
 
     public void saveAll(Iterable i);
+
+    public Iterable<T> findAll();
 }

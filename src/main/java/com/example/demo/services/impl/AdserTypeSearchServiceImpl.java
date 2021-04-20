@@ -1,8 +1,8 @@
 package com.example.demo.services.impl;
 
-import com.example.demo.models.User;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.services.UserService;
+import com.example.demo.models.AdserTypeElasticSearch;
+import com.example.demo.repository.AdserTypeRepository;
+import com.example.demo.services.AdserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -14,45 +14,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserSearchServiceImpl implements UserService<User> {
+public class AdserTypeSearchServiceImpl implements AdserTypeService<AdserTypeElasticSearch> {
 
 
     @Autowired
-    private UserRepository userRepository;
+    private AdserTypeRepository adserTypeRepository;
 
 
     @Autowired
     private ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public List<User> fetchUserName(final String name) {
-        return userRepository.findByName(name);
+    public List<AdserTypeElasticSearch> fetchUserName(final String name) {
+        return adserTypeRepository.findByName(name);
     }
 
     @Override
-    public List<User> fetchUserByNameContaining(final String name) {
-        return userRepository.findAllByNameContaining(name);
+    public List<AdserTypeElasticSearch> fetchUserByNameContaining(final String name) {
+        return adserTypeRepository.findAllByNameContaining(name);
 
     }
 
 
     @Override
-    public List<User> processSearch(final String name) {
+    public List<AdserTypeElasticSearch> processSearch(final String name) {
         //1. Create query on multiple fields enabling fuzzy search
         Query searchQuery = new StringQuery("{\"match\":{\"name\":{\"query\":\"" + name + "\"}}}\"");
 
 
         //2. Execute search to get hits
-        SearchHits<User> userSearchHits = null;
+        SearchHits<AdserTypeElasticSearch> userSearchHits = null;
         try {
-            userSearchHits = elasticsearchOperations.search(searchQuery, User.class);
+            userSearchHits = elasticsearchOperations.search(searchQuery, AdserTypeElasticSearch.class);
 
         } catch (Exception e) {
             System.out.println(e);
         }
 
         //3. convert to return user list
-        List<User> usersMatch = new ArrayList<>();
+        List<AdserTypeElasticSearch> usersMatch = new ArrayList<>();
         userSearchHits.forEach(userSearchHit -> {
             usersMatch.add(userSearchHit.getContent());
         });
@@ -60,13 +60,18 @@ public class UserSearchServiceImpl implements UserService<User> {
     }
 
     @Override
-    public User save(User user) {
-        return this.userRepository.save(user);
+    public AdserTypeElasticSearch save(AdserTypeElasticSearch user) {
+        return this.adserTypeRepository.save(user);
     }
 
     @Override
     public void saveAll(Iterable i) {
-        this.userRepository.saveAll(i);
+        this.adserTypeRepository.saveAll(i);
+    }
+
+    @Override
+    public Iterable<AdserTypeElasticSearch> findAll() {
+        return this.adserTypeRepository.findAll();
     }
 
 //    public List<IndexedObjectInformation> createUserIndexBulk(final List<User> users) {
