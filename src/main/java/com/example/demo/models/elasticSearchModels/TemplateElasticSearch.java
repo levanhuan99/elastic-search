@@ -10,78 +10,79 @@ import java.sql.Date;
 
 @Document(indexName = "template")
 public class TemplateElasticSearch {
-    @Id
-    @Field(type = FieldType.Text, name = "id")
-    private Long id;
 
-    @Field(type = FieldType.Text, name = "TEMPLATE_TYPE_ID")
+    @Field(type = FieldType.Object, name = "id")
+    private Integer id;
+
+    @Id
+    @Field(type = FieldType.Object, name = "templateTypeId")
     private int templateTypeId;
 
-    @Field(type = FieldType.Text, name = "LABEL_ID")
+    @Field(type = FieldType.Object, name = "labelId")
     private Long labelId;
 
-    @Field(type = FieldType.Text, name = "STATUS")
+    @Field(type = FieldType.Object, name = "status")
     private int status;
 
-    @Field(type = FieldType.Text, name = "TEMPLATE_CONTENT")
+    @Field(type = FieldType.Object, name = "templateContent")
     private String templateContent;
 
-    @Field(type = FieldType.Text, name = "TOTAL_PARAM")
+    @Field(type = FieldType.Object, name = "totalParam")
     private int totalParam;
 
-    @Field(type = FieldType.Text, name = "AGENT_ID")
+    @Field(type = FieldType.Object, name = "agentId")
     private Long agentId;
 
-    @Field(type = FieldType.Text, name = "CREATED_USER")
+    @Field(type = FieldType.Object, name = "createdUser")
     private String createdUser;
 
-    @Field(type = FieldType.Text, name = "UPDATED_USER")
+    @Field(type = FieldType.Object, name = "updatedUser")
     private String updatedUser;
 
-    @Field(type = FieldType.Text, name = "CREATED_DATE")
-    private Date createdDate;
+    @Field(type = FieldType.Object, name = "createdDate")
+    private Long createdDate;
 
-    @Field(type = FieldType.Text, name = "UPDATED_DATE")
-    private Date updatedDate;
+    @Field(type = FieldType.Object, name = "updatedDate")
+    private Long updatedDate;
 
-    @Field(type = FieldType.Text, name = "CENSORED_USER")
+    @Field(type = FieldType.Object, name = "censoredUser")
     private String censoredUser;
 
-    @Field(type = FieldType.Text, name = "CENSORED_DATE")
-    private Date censoredDate;
+    @Field(type = FieldType.Object, name = "censoredDate")
+    private Long censoredDate;
 
-    @Field(type = FieldType.Text, name = "PRIORITY")
+    @Field(type = FieldType.Object, name = "priority")
     private int priority;
 
-    @Field(type = FieldType.Text, name = "TEMPLATE_NAME")
+    @Field(type = FieldType.Object, name = "templateName")
     private String templateName;
 
-    @Field(type = FieldType.Text, name = "AGENT_TYPE")
+    @Field(type = FieldType.Object, name = "agentType")
     private int agentType;
 
-    @Field(type = FieldType.Text, name = "ADSER_ID")
+    @Field(type = FieldType.Object, name = "adserId")
     private Long adserId;
 
-    @Field(type = FieldType.Text, name = "ADSER_TYPE")
+    @Field(type = FieldType.Object, name = "adserType")
     private int adserType;
 
-    @Field(type = FieldType.Text, name = "CONTRACT_ID")
+    @Field(type = FieldType.Object, name = "contractId")
     private Long contractId;
 
-    @Field(type = FieldType.Text, name = "CONTRACT_TYPE_ID")
+    @Field(type = FieldType.Object, name = "contractTypeId")
     private int contractTypeId;
 
-    @Field(type = FieldType.Text, name = "DESTROYED_DATE")
-    private Date destroyedDate;
+    @Field(type = FieldType.Object, name = "destroyedDate")
+    private Long destroyedDate;
 
-    @Field(type = FieldType.Text, name = "TEMPLATE_CONTENT_MESSAGE")
+    @Field(type = FieldType.Object, name = "templateContentMessage")
     private String templateContentMessage;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -149,19 +150,19 @@ public class TemplateElasticSearch {
         this.updatedUser = updatedUser;
     }
 
-    public Date getCreatedDate() {
+    public Long getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Long createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getUpdatedDate() {
+    public Long getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
+    public void setUpdatedDate(Long updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -173,11 +174,11 @@ public class TemplateElasticSearch {
         this.censoredUser = censoredUser;
     }
 
-    public Date getCensoredDate() {
+    public Long getCensoredDate() {
         return censoredDate;
     }
 
-    public void setCensoredDate(Date censoredDate) {
+    public void setCensoredDate(Long censoredDate) {
         this.censoredDate = censoredDate;
     }
 
@@ -237,11 +238,11 @@ public class TemplateElasticSearch {
         this.contractTypeId = contractTypeId;
     }
 
-    public Date getDestroyedDate() {
+    public Long getDestroyedDate() {
         return destroyedDate;
     }
 
-    public void setDestroyedDate(Date destroyedDate) {
+    public void setDestroyedDate(Long destroyedDate) {
         this.destroyedDate = destroyedDate;
     }
 
