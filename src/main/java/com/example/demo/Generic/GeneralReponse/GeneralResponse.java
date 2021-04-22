@@ -3,7 +3,7 @@ package com.example.demo.Generic.GeneralReponse;
 public class GeneralResponse<T> {
     private T data;
     private int code;
-    private int totalItem;
+    private long totalItem;
     private String message;
 
     public T getData() {
@@ -22,11 +22,11 @@ public class GeneralResponse<T> {
         this.code = code;
     }
 
-    public int getTotalItem() {
+    public long getTotalItem() {
         return totalItem;
     }
 
-    public void setTotalItem(int totalItem) {
+    public void setTotalItem(long totalItem) {
         this.totalItem = totalItem;
     }
 

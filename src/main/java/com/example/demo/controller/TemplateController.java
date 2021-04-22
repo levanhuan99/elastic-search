@@ -3,9 +3,10 @@ package com.example.demo.controller;
 
 import com.example.demo.Generic.GeneralReponse.GeneralResponse;
 import com.example.demo.models.elasticSearchModels.TemplateElasticSearch;
-import com.example.demo.services.elasticSearch.Impl.TemplateElasticSearchServiceImpl;
+import com.example.demo.services.elasticSearch.impl.TemplateElasticSearchServiceImpl;
 import com.example.demo.services.database.impl.TemplateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -54,17 +55,18 @@ public class TemplateController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<GeneralResponse<List<TemplateElasticSearch>>> getTemplateByCondition(@RequestParam("temp") String temp,
+                                                                                               @RequestParam("status") int status,
                                                                                                @RequestParam("currentPage") int currentPage,
                                                                                                @RequestParam("pageSize") int pageSize) {
         ResponseEntity responseEntity = null;
         GeneralResponse<List<TemplateElasticSearch>> generalResponse = new GeneralResponse();
 
-        List<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByCondition(temp,currentPage,pageSize);
+        Page<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByCondition(temp,status,currentPage,pageSize);
 
-        generalResponse.setData(templateElasticSearchList);
+        generalResponse.setData(templateElasticSearchList.getContent());
         generalResponse.setCode(200);
         generalResponse.setMessage("successful");
-        generalResponse.setTotalItem(templateElasticSearchList.size());
+        generalResponse.setTotalItem(templateElasticSearchList.getTotalElements());
         responseEntity = new ResponseEntity(generalResponse, HttpStatus.OK);
 
         return responseEntity;
