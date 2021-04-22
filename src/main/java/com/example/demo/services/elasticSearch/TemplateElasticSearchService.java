@@ -6,5 +6,5 @@ import com.example.demo.models.elasticSearchModels.TemplateElasticSearch;
 import java.util.List;
 
 public interface TemplateElasticSearchService extends Service<TemplateElasticSearch> {
-    public List<TemplateElasticSearch> findAllByCondition( String template);
+    public List<TemplateElasticSearch> findAllByCondition( String template,int currentPage, int pageSize);
 }
