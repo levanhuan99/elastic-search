@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface TemplateElasticSearchRepo extends ElasticsearchRepository<TemplateElasticSearch,Long> {
 
-    public List<TemplateElasticSearch> findAllByCondition(String label,String template, Long tempId);
 }
