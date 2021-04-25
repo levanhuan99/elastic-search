@@ -3,6 +3,7 @@ package com.example.demo.repository.elasticSearch;
 import com.example.demo.models.elasticSearchModels.TemplateElasticSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,7 @@ public interface TemplateElasticSearchRepo extends ElasticsearchRepository<Templ
 
 
      Page<TemplateElasticSearch> findAllByTemplateContentAndStatus(String temp, int status, PageRequest pageRequest);
+
+
+     Page<TemplateElasticSearch> findAllByLabelId(Long labelId, Pageable pageable);
 }

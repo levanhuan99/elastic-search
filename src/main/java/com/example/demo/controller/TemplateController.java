@@ -106,6 +106,24 @@ public class TemplateController {
 
 
 
+    @RequestMapping(value = "/label", method = RequestMethod.GET)
+    public ResponseEntity<GeneralResponse<List<TemplateElasticSearch>>> getTemplateByLabel(@RequestParam("labelId") long labelId,
+                                                                                               @RequestParam("currentPage") int currentPage,
+                                                                                               @RequestParam("pageSize") int pageSize) {
+        ResponseEntity responseEntity = null;
+        GeneralResponse<List<TemplateElasticSearch>> generalResponse = new GeneralResponse();
+
+        Page<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByLabelId(labelId,currentPage,pageSize);
+
+        generalResponse.setData(templateElasticSearchList.getContent());
+        generalResponse.setCode(200);
+        generalResponse.setMessage("successful");
+        generalResponse.setTotalItem(templateElasticSearchList.getTotalElements());
+        responseEntity = new ResponseEntity(generalResponse, HttpStatus.OK);
+
+        return responseEntity;
+    }
+
 
 
 

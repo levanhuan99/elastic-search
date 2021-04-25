@@ -11,4 +11,5 @@ public interface TemplateElasticSearchService extends Service<TemplateElasticSea
     Page<TemplateElasticSearch> findAllByCondition(String template, int status, int currentPage, int pageSize);
 
     SearchHits<TemplateElasticSearch> findByCondition1(String temp, int status,int currentPage, int pageSize);
+    Page<TemplateElasticSearch> findAllByLabelId(Long labelId,int currentPage,int pageSize);
 }

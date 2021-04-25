@@ -22,6 +22,7 @@ import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.Query;
+import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -78,50 +79,60 @@ public class TemplateElasticSearchServiceImpl implements TemplateElasticSearchSe
     public Page<TemplateElasticSearch> findAllByCondition(String template, int status, int currentPage, int pageSize) {
 
 
-        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
-        nativeSearchQueryBuilder.withQuery(QueryBuilders.matchQuery("templateContent", template));
-//        nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort("id").order(SortOrder.DESC));
-        nativeSearchQueryBuilder.withPageable(PageRequest.of(currentPage, pageSize, Sort.by(new Sort.Order(Sort.Direction.DESC, "_score"))));
-
-
-        Page<TemplateElasticSearch> templateElasticSearches = null;
-        try {
-            templateElasticSearches = this.templateElasticSearchRepo.search(nativeSearchQueryBuilder.build());
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return templateElasticSearches;
+//        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+//        nativeSearchQueryBuilder.withQuery(QueryBuilders.matchQuery("templateContent", template));
+//
+//        nativeSearchQueryBuilder.withPageable(PageRequest.of(currentPage, pageSize, Sort.by(new Sort.Order(Sort.Direction.DESC, "_score"))));
+//
+//
+//        Page<TemplateElasticSearch> templateElasticSearches = null;
+//        try {
+//            templateElasticSearches = this.templateElasticSearchRepo.search(nativeSearchQueryBuilder.build());
+//
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        return templateElasticSearches;
 //        String newTemp = template.replaceAll(" ","*");
 
-//       return this.templateElasticSearchRepo.findAllByTemplateContentAndStatus(template, status,PageRequest.of(currentPage,pageSize));
+        return this.templateElasticSearchRepo.findAllByTemplateContentAndStatus(template, status, PageRequest.of(currentPage, pageSize));
 
     }
 
     @Override
     public SearchHits<TemplateElasticSearch> findByCondition1(String temp, int status, int currentPage, int pageSize) {
-//        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
-//                .withFilter(boolQuery().must(termQuery("templateContent", temp)))
-//                .withPageable(PageRequest.of(currentPage, pageSize,Sort.by(new Sort.Order(Sort.Direction.DESC, "_score"))))
-//                .withQuery(matchQuery("templateContent", temp)
-//                        .operator(Operator.OR)
-//                        .fuzziness(Fuzziness.ONE))
-//                .build();
+//
+//        Query searchQuery = new StringQuery("{ \"dis_max\": {\n" +
+//                "      \"queries\": [\n" +
+//                "        { \"match_phrase\": { \"templateContent\": \"trien khai chuong trinh phat hanh\" }},\n" +
+//                "        { \"match\": { \"status\": \"1\" }}\n" +
+//                "      ],\n" +
+//                "      \"tie_breaker\": 0.7\n" +
+//                "    } \n} ");
+        Query searchQuery = new StringQuery(" {\"bool\":{\"must\":[ {\"match_phrase\":{\"templateContent\":\"" + temp + "\"}}," +
+                "\n{\"match\":{\"status\":\"" + status + "\"}}" +
+                "]\n}\n}");
+//        SearchHits<TemplateElasticSearch> searchHits = elasticsearchOperations.search(query, TemplateElasticSearch.class);
 
-        Query searchQuery = new NativeSearchQueryBuilder()
-                .withPageable(PageRequest.of(currentPage, pageSize,Sort.by(new Sort.Order(Sort.Direction.DESC, "_score"))))
-                .withFilter(boolQuery().must(termQuery("templateContent", temp)))
-                .build();
+//        Query searchQuery = new NativeSearchQueryBuilder()
+//                .withPageable(PageRequest.of(currentPage, pageSize,Sort.by(new Sort.Order(Sort.Direction.DESC, "_score"))))
+//                .withFilter(boolQuery().must(termQuery("templateContent", temp)))
+//                .build();
         SearchHits<TemplateElasticSearch> userSearchHits = null;
         try {
             userSearchHits = elasticsearchOperations.search(searchQuery, TemplateElasticSearch.class, IndexCoordinates.of("template"));
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return  userSearchHits;
+        return userSearchHits;
 
+    }
+
+    @Override
+    public Page<TemplateElasticSearch> findAllByLabelId(Long labelId, int currentPage, int pageSize) {
+        return this.templateElasticSearchRepo.findAllByLabelId(labelId, PageRequest.of(currentPage, pageSize));
     }
 
 
