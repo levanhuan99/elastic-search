@@ -11,78 +11,78 @@ import java.sql.Date;
 @Document(indexName = "template")
 public class TemplateElasticSearch {
 
-    @Field(type = FieldType.Object, name = "id")
-    private Integer id;
+    @Field(type = FieldType.Long, name = "id")
+    private Long id;
 
     @Id
-    @Field(type = FieldType.Object, name = "templateTypeId")
+    @Field(type = FieldType.Integer, name = "templateTypeId",nullValue = "")
     private int templateTypeId;
 
-    @Field(type = FieldType.Object, name = "labelId")
+    @Field(type = FieldType.Long, name = "labelId",nullValue = "")
     private Long labelId;
 
-    @Field(type = FieldType.Object, name = "status")
+    @Field(type = FieldType.Integer, name = "status",nullValue = "")
     private int status;
 
-    @Field(type = FieldType.Object, name = "templateContent")
+    @Field(type = FieldType.Text, name = "templateContent",nullValue = "")
     private String templateContent;
 
-    @Field(type = FieldType.Object, name = "totalParam")
+    @Field(type = FieldType.Integer, name = "totalParam",nullValue = "")
     private int totalParam;
 
-    @Field(type = FieldType.Object, name = "agentId")
+    @Field(type = FieldType.Long, name = "agentId",nullValue = "")
     private Long agentId;
 
-    @Field(type = FieldType.Object, name = "createdUser")
+    @Field(type = FieldType.Text, name = "createdUser",nullValue = "")
     private String createdUser;
 
-    @Field(type = FieldType.Object, name = "updatedUser")
+    @Field(type = FieldType.Text, name = "updatedUser",nullValue = "")
     private String updatedUser;
 
-    @Field(type = FieldType.Object, name = "createdDate")
+    @Field(type = FieldType.Long, name = "createdDate",nullValue = "")
     private Long createdDate;
 
-    @Field(type = FieldType.Object, name = "updatedDate")
+    @Field(type = FieldType.Long, name = "updatedDate",nullValue = "")
     private Long updatedDate;
 
-    @Field(type = FieldType.Object, name = "censoredUser")
+    @Field(type = FieldType.Text, name = "censoredUser",nullValue = "")
     private String censoredUser;
 
-    @Field(type = FieldType.Object, name = "censoredDate")
+    @Field(type = FieldType.Long, name = "censoredDate",nullValue = "")
     private Long censoredDate;
 
-    @Field(type = FieldType.Object, name = "priority")
+    @Field(type = FieldType.Integer, name = "priority",nullValue = "")
     private int priority;
 
-    @Field(type = FieldType.Object, name = "templateName")
+    @Field(type = FieldType.Text, name = "templateName",nullValue = "")
     private String templateName;
 
-    @Field(type = FieldType.Object, name = "agentType")
+    @Field(type = FieldType.Integer, name = "agentType",nullValue = "")
     private int agentType;
 
-    @Field(type = FieldType.Object, name = "adserId")
+    @Field(type = FieldType.Long, name = "adserId",nullValue = "")
     private Long adserId;
 
-    @Field(type = FieldType.Object, name = "adserType")
+    @Field(type = FieldType.Integer, name = "adserType",nullValue = "")
     private int adserType;
 
-    @Field(type = FieldType.Object, name = "contractId")
+    @Field(type = FieldType.Long, name = "contractId",nullValue = "")
     private Long contractId;
 
-    @Field(type = FieldType.Object, name = "contractTypeId")
+    @Field(type = FieldType.Integer, name = "contractTypeId",nullValue = "")
     private int contractTypeId;
 
-    @Field(type = FieldType.Object, name = "destroyedDate")
+    @Field(type = FieldType.Long, name = "destroyedDate",nullValue = "")
     private Long destroyedDate;
 
-    @Field(type = FieldType.Object, name = "templateContentMessage")
+    @Field(type = FieldType.Text, name = "templateContentMessage",nullValue = "")
     private String templateContentMessage;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

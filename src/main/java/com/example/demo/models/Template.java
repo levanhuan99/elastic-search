@@ -19,7 +19,7 @@ public class Template {
     @Column(name = "LABEL_ID")
     private Long labelId;
 
-    @Column(name = "STATUS")
+    @Column(name = "STATUS",nullable = true)
     private int status;
 
     @Column(name = "TEMPLATE_CONTENT")

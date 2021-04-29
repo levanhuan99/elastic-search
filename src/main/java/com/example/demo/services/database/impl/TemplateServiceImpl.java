@@ -4,6 +4,9 @@ import com.example.demo.models.Template;
 import com.example.demo.repository.database.TemplateRepository;
 import com.example.demo.services.database.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +49,12 @@ public class TemplateServiceImpl implements TemplateService<Template> {
     public List<Template> getTemplateLimit() {
         return this.templateRepository.getTemplateLimit();
     }
+
+    @Override
+    public Page<Template> findByTemplateStatusAndTemplateContentContaining(int status, String temp, int currentPage, int pageSize) {
+        return this.templateRepository.findTemplatesByStatusAndTemplateContentContaining(status,temp,PageRequest.of(currentPage,pageSize));
+    }
+
 
 
 }

@@ -25,6 +25,7 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -102,23 +103,23 @@ public class TemplateElasticSearchServiceImpl implements TemplateElasticSearchSe
 
     @Override
     public SearchHits<TemplateElasticSearch> findByCondition1(String temp, int status, int currentPage, int pageSize) {
-//
-//        Query searchQuery = new StringQuery("{ \"dis_max\": {\n" +
-//                "      \"queries\": [\n" +
-//                "        { \"match_phrase\": { \"templateContent\": \"trien khai chuong trinh phat hanh\" }},\n" +
-//                "        { \"match\": { \"status\": \"1\" }}\n" +
-//                "      ],\n" +
-//                "      \"tie_breaker\": 0.7\n" +
-//                "    } \n} ");
         Query searchQuery = new StringQuery(" {\"bool\":{\"must\":[ {\"match_phrase\":{\"templateContent\":\"" + temp + "\"}}," +
                 "\n{\"match\":{\"status\":\"" + status + "\"}}" +
-                "]\n}\n}");
-//        SearchHits<TemplateElasticSearch> searchHits = elasticsearchOperations.search(query, TemplateElasticSearch.class);
+                "]\n}\n}",PageRequest.of(currentPage,pageSize));
+//        Query searchQuery = new StringQuery("\"bool\": {\n" +
+//                "      \"must\": [\n" +
+//                "        {\"match_phrase\": {\n" +
+//                "          \"templateContent\": \""+temp+"\"\n" +
+//                "        }},\n" +
+//                "        {\n" +
+//                "          \"match\": {\n" +
+//                "            \"status\": \""+status+"\"\n" +
+//                "          }}\n" +
+//                "      ]\n" +
+//                "    }");
+//
+//        searchQuery.setScrollTime(Duration.ofMillis(100000));
 
-//        Query searchQuery = new NativeSearchQueryBuilder()
-//                .withPageable(PageRequest.of(currentPage, pageSize,Sort.by(new Sort.Order(Sort.Direction.DESC, "_score"))))
-//                .withFilter(boolQuery().must(termQuery("templateContent", temp)))
-//                .build();
         SearchHits<TemplateElasticSearch> userSearchHits = null;
         try {
             userSearchHits = elasticsearchOperations.search(searchQuery, TemplateElasticSearch.class, IndexCoordinates.of("template"));
@@ -135,5 +136,8 @@ public class TemplateElasticSearchServiceImpl implements TemplateElasticSearchSe
         return this.templateElasticSearchRepo.findAllByLabelId(labelId, PageRequest.of(currentPage, pageSize));
     }
 
+    public void saveData(Iterable<TemplateElasticSearch> templateElasticSearches){
+        this.templateElasticSearchRepo.saveAll(templateElasticSearches);
+    }
 
 }
