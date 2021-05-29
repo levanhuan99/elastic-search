@@ -66,28 +66,49 @@ public class TemplateController {
 
 
         //to insert data to elastic search server
-//        Iterable<Template> iterableTemplate =this.templateService.getTemplateLimit();
-//        List<Template> templates =
-//                StreamSupport.stream(iterableTemplate.spliterator(), false)
-//                        .collect(Collectors.toList());
-//
-//
-//        Iterable<TemplateElasticSearch> iterableTemPlateElasticSearch = convertData(templates);
-//        this.templateElasticSearchService.saveData(iterableTemPlateElasticSearch);
-//        System.out.println("saved "+templates.size()+" records");
-//        Page<TemplateElasticSearch> templateElasticSearchList = Page.empty();
+        Iterable<Template> iterableTemplate =this.templateService.getTemplateLimit();
+        List<Template> templates =
+                StreamSupport.stream(iterableTemplate.spliterator(), false)
+                        .collect(Collectors.toList());
 
-        Page<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByCondition(temp,status,currentPage,pageSize);
 
-        generalResponse.setData(templateElasticSearchList.getContent());
-        generalResponse.setCode(200);
-        generalResponse.setMessage("successful");
-        generalResponse.setTotalItem(templateElasticSearchList.getTotalElements());
-        responseEntity = new ResponseEntity(generalResponse, HttpStatus.OK);
+        Iterable<TemplateElasticSearch> iterableTemPlateElasticSearch = convertData(templates);
+        this.templateElasticSearchService.saveData(iterableTemPlateElasticSearch);
+        System.out.println("saved "+templates.size()+" records");
+        Page<TemplateElasticSearch> templateElasticSearchList = Page.empty();
+//
+//        Page<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByCondition(temp,status,currentPage,pageSize);
+//
+//        generalResponse.setData(templateElasticSearchList.getContent());
+//        generalResponse.setCode(200);
+//        generalResponse.setMessage("successful");
+//        generalResponse.setTotalItem(templateElasticSearchList.getTotalElements());
+//        responseEntity = new ResponseEntity(generalResponse, HttpStatus.OK);
 
         return responseEntity;
     }
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<GeneralResponse<List<TemplateElasticSearch>>> saveDataToES() {
 
+        ResponseEntity responseEntity = null;
+        GeneralResponse<List<TemplateElasticSearch>> generalResponse = new GeneralResponse();
+
+
+
+        //to insert data to elastic search server
+        Iterable<Template> iterableTemplate =this.templateService.getTemplateLimit();
+        List<Template> templates =
+                StreamSupport.stream(iterableTemplate.spliterator(), false)
+                        .collect(Collectors.toList());
+
+
+        Iterable<TemplateElasticSearch> iterableTemPlateElasticSearch = convertData(templates);
+        this.templateElasticSearchService.saveData(iterableTemPlateElasticSearch);
+        System.out.println("saved "+templates.size()+" records");
+        Page<TemplateElasticSearch> templateElasticSearchList = Page.empty();
+
+        return responseEntity;
+    }
 
     @RequestMapping(value = "/elastic_search", method = RequestMethod.GET)
     public ResponseEntity<GeneralResponse<List<TemplateElasticSearch>>> getTemplateByCondition1(@RequestParam("temp") String temp,
@@ -118,24 +139,24 @@ public class TemplateController {
 
 
 
-    @RequestMapping(value = "/label", method = RequestMethod.GET)
-    public ResponseEntity<GeneralResponse<List<TemplateElasticSearch>>> getTemplateByLabel(@RequestParam("labelId") long labelId,
-                                                                                               @RequestParam("currentPage") int currentPage,
-                                                                                               @RequestParam("pageSize") int pageSize) {
-        ResponseEntity responseEntity = null;
-        GeneralResponse<List<TemplateElasticSearch>> generalResponse = new GeneralResponse();
-
-        Page<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByLabelId(labelId,currentPage,pageSize);
-
-        generalResponse.setData(templateElasticSearchList.getContent());
-        generalResponse.setCode(200);
-        generalResponse.setMessage("successful");
-        generalResponse.setTotalItem(templateElasticSearchList.getTotalElements());
-        responseEntity = new ResponseEntity(generalResponse, HttpStatus.OK);
-
-        return responseEntity;
-    }
-
+//    @RequestMapping(value = "/label", method = RequestMethod.GET)
+//    public ResponseEntity<GeneralResponse<List<TemplateElasticSearch>>> getTemplateByLabel(@RequestParam("labelId") long labelId,
+//                                                                                               @RequestParam("currentPage") int currentPage,
+//                                                                                               @RequestParam("pageSize") int pageSize) {
+//        ResponseEntity responseEntity = null;
+//        GeneralResponse<List<TemplateElasticSearch>> generalResponse = new GeneralResponse();
+//
+//        Page<TemplateElasticSearch> templateElasticSearchList = this.templateElasticSearchService.findAllByLabelId(labelId,currentPage,pageSize);
+//
+//        generalResponse.setData(templateElasticSearchList.getContent());
+//        generalResponse.setCode(200);
+//        generalResponse.setMessage("successful");
+//        generalResponse.setTotalItem(templateElasticSearchList.getTotalElements());
+//        responseEntity = new ResponseEntity(generalResponse, HttpStatus.OK);
+//
+//        return responseEntity;
+//    }
+//
 
     @RequestMapping(value = "/spring_search", method = RequestMethod.GET)
     public ResponseEntity<GeneralResponse<List<Template>>> getTemplates(@RequestParam("status") int status,
